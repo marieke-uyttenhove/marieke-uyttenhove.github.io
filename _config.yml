@@ -24,7 +24,7 @@ author:
   email: podologie.uyttenhove@gmail.com
 description:   
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://marieke-uyttenhove.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://podologie-uyttenhove.be" # the base hostname & protocol for your site, e.g. http://example.com
 linkedin_username: marieke-uyttenhove
 
 # Build settings
@@ -58,8 +58,8 @@ exclude:
 # order as they should show up.
 header_pages:
   - about.md
-  - opleiding.md
-  - werkervaring.md
+#  - opleiding.md  # TODO: add again when finished
+#  - werkervaring.md  # TODO: add again when finished
 
 # Set to `true` to show excerpts on the homepage.
 show_excerpts: true
