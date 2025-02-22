@@ -11,4 +11,4 @@ order: 1
 
 Marieke legt zich toe op voetzorg zoals eelt- of nagelproblemen, en ook op biomechanisch onderzoek waarbij ze een oplossing zoekt voor voet-, knie-, heup- en rugproblemen. 
 
-Marieke werkt bij Podologie Lieveke Luyckx in Schoten en behandelt daarnaast patiënten aan huis in regio Kruibeke.
+Marieke leidt de praktijk Podologie Lieveke Luyckx in Schoten en behandelt daarnaast patiënten aan huis in regio Kruibeke.
