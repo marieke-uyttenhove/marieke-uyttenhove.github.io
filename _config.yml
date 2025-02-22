@@ -26,7 +26,7 @@ description:
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://podologie-uyttenhove.be" # the base hostname & protocol for your site, e.g. http://example.com
 linkedin_username: marieke-uyttenhove
-github: [metadata]
+github: [metadata]  # does not solve "GitHub Metadata: No GitHub API authentication could be found."
 
 # Build settings
 theme: minima
