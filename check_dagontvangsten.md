@@ -4,35 +4,30 @@ title: Check dagontvangsten
 permalink: /check_dagontvangsten/
 ---
 
+<head>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
 {% raw %}
-<form id="uploadForm">
-    <input type="file" id="fileInput" class="form-control mb-3">
-    <button type="button" onclick="uploadFile()" class="btn btn-primary">Upload</button>
+<form id="uploadForm" class="mt-4">
+    <div class="mb-3">
+        <input type="file" id="fileInput" class="form-control">
+    </div>
+    <button type="button" onclick="uploadFile()" class="btn btn-primary btn-lg mb-3">Upload</button>
 </form>
 
-<h3 class="mt-4">Revenue Overview</h3>
-<pre id="output"></pre>
+<!-- Placeholder element to put output in -->
+<div id="output"></div>
 
-<!-- <script>
-    async function uploadFile() {
-        const fileInput = document.getElementById("fileInput");
-        if (!fileInput.files.length) {
-            alert("Please select a file.");
-            return;
-        }
+<!-- Loading spinner -->
+<div id="loadingSpinner" class="spinner-border text-primary mt-3" role="status" style="display: none;">
+    <span class="sr-only">Loading...</span>
+</div>
 
-        const formData = new FormData();
-        formData.append("file", fileInput.files[0]);
+<!-- Include marked.js library -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-        const response = await fetch("https://check-dagontvangsten-backend.onrender.com/upload", {
-            method: "POST",
-            body: formData
-        });
-
-        const result = await response.json();
-        document.getElementById("output").textContent = JSON.stringify(result, null, 2);
-    }
-</script> -->
 <script>
     async function uploadFile() {
         const fileInput = document.getElementById("fileInput");
@@ -44,6 +39,9 @@ permalink: /check_dagontvangsten/
         const formData = new FormData();
         formData.append("file", fileInput.files[0]);
 
+        // Show the loading spinner
+        document.getElementById("loadingSpinner").style.display = "block";
+
         try {
             const response = await fetch("https://check-dagontvangsten-backend.onrender.com/upload", {
                 method: "POST",
@@ -54,41 +52,21 @@ permalink: /check_dagontvangsten/
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            const result = await response.json();
+            const result = await response.text(); // Get the markdown string
             console.log("Response received:", result);
-            displayTable(result);  // Call function to render table
+            displayMarkdown(result);  // Call function to render markdown
         } catch (error) {
             console.error("Upload failed:", error);
             document.getElementById("output").innerHTML = `<div class="text-danger">Error: ${error.message}</div>`;
+        } finally {
+            // Hide the loading spinner
+            document.getElementById("loadingSpinner").style.display = "none";
         }
     }
 
-    function displayTable(data) {
-        if (!data.length) {
-            document.getElementById("output").innerHTML = "<p>No data available.</p>";
-            return;
-        }
-
-        let table = "<table class='table table-bordered'><thead><tr>";
-
-        // Create table headers from JSON keys
-        Object.keys(data[0]).forEach(key => {
-            table += `<th>${key}</th>`;
-        });
-        table += "</tr></thead><tbody>";
-
-        // Add table rows
-        data.forEach(row => {
-            table += "<tr>";
-            Object.values(row).forEach(value => {
-                table += `<td>${value}</td>`;
-            });
-            table += "</tr>";
-        });
-
-        table += "</tbody></table>";
-
-        document.getElementById("output").innerHTML = table;
+    function displayMarkdown(markdown) {
+        const html = marked.parse(markdown); // Convert markdown to HTML
+        document.getElementById("output").innerHTML = html;
     }
 </script>
 {% endraw %}
