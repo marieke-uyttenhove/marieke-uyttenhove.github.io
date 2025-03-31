@@ -64,6 +64,12 @@ permalink: /check_afrekening/
     });
 
     async function uploadIndex() {
+        // Validate currentWeekIndex
+        if (!Number.isInteger(currentWeekIndex)) {
+            console.error("Invalid week index:", currentWeekIndex);
+            document.getElementById("output").innerHTML = `<div class="text-danger">Error: Invalid week index.</div>`;
+            return;
+        }
         // Show the loading spinner
         document.getElementById("loadingSpinner").style.display = "block";
 
@@ -77,6 +83,7 @@ permalink: /check_afrekening/
             });
 
             if (!response.ok) {
+                console.log(response);
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
